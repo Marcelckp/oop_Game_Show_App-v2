@@ -86,28 +86,27 @@ class Game {
 
         phraseLi.forEach((li) => {
 
-            console.log(li);
+            // console.log(li);
 
             if (li.className === `hide letter ${li.textContent}`) {
 
                 trueOrNot = false;
-                console.log('game hasn\'t been won as yet')
 
             } else {
 
                 trueOrNot = true;
-                console.log('Congratulations you have won the game')
+
             }
-
-            // if (li.className === `show letter ${li.textContent}`) {
-
-            //     trueOrNot = true;
-
-            // }
 
         })
 
         console.log(trueOrNot)
+        if (trueOrNot) {
+            console.log('Congratulations you have won the game')
+        } else {
+            console.log('game hasn\'t been won as yet')
+        }
+
         return trueOrNot;
 
     }
