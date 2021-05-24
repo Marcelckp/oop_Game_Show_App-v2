@@ -33,7 +33,7 @@ class Game {
         phrases.push(phrase4);
         phrases.push(phrase5);
 
-        return phrases
+        return phrases;
 
     }
 
@@ -47,8 +47,8 @@ class Game {
 
         const randomPhrase = this.phrases[Math.floor(Math.random() * 5)]
 
-        const phrase = randomPhrase.phrase
-            // console.log(phrase)
+        const phrase = randomPhrase.phrase;
+        // console.log(phrase)
 
         return phrase;
 
@@ -62,7 +62,7 @@ class Game {
 
         const overlayDiv = document.querySelector('#overlay');
 
-        overlayDiv.style.display = 'none'
+        overlayDiv.style.display = 'none';
 
         const randomPhrase = game.getRandomPhrase();
         // console.log(randomPhrase);
@@ -73,6 +73,56 @@ class Game {
 
     }
 
+    /**
+     * Checks for winning move 
+     * @return {boolean} True if the game has been won and false if the games hasn't been won
+     */
+
+    checkForWin() {
+
+        const phraseLi = document.querySelectorAll('#phrase ul li')
+
+        let trueOrNot = ''
+
+        phraseLi.forEach((li) => {
+
+            console.log(li);
+
+            if (li.className === `hide letter ${li.textContent}`) {
+
+                trueOrNot = false;
+                console.log('game hasn\'t been won as yet')
+
+            } else {
+
+                trueOrNot = true;
+                console.log('Congratulations you have won the game')
+            }
+
+            // if (li.className === `show letter ${li.textContent}`) {
+
+            //     trueOrNot = true;
+
+            // }
+
+        })
+
+        console.log(trueOrNot)
+        return trueOrNot;
+
+    }
+
+    removeLife() {
+
+
+
+    }
+
+    gameOver() {
+
+
+
+    }
     handleInteraction() {
 
 

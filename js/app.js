@@ -9,17 +9,26 @@ const game = new Game();
 
 const beginGame = game.startGame;
 
-const startGameBtn = document.querySelector('#btn__reset')
-const onScreenButtons = document.querySelector('#qwerty')
+const startGameBtn = document.querySelector('#btn__reset');
+const onScreenButtons = document.querySelector('#qwerty');
 
-startGameBtn.addEventListener('click', () => beginGame())
+startGameBtn.addEventListener('click', () => {
 
+    beginGame();
+
+})
+
+onScreenButtons.addEventListener('click', () => {
+
+    // phrase.checkLetter(event.target.textContent);
+    phrase.showMatchedLetter(event.target.textContent);
+
+    game.checkForWin();
+
+})
 
 const randomPhrase = game.getRandomPhrase();
 // console.log(randomPhrase);
 
 let phrase = new Phrase(randomPhrase);
 // phrase.addPhraseToDisplay();
-
-
-phrase.checkLetter();
