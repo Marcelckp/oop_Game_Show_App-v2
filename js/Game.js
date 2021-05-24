@@ -82,7 +82,7 @@ class Game {
 
         const phraseLi = document.querySelectorAll('#phrase ul li')
 
-        let trueOrNot = ''
+        let trueOrNot = true;
 
         phraseLi.forEach((li) => {
 
@@ -91,10 +91,6 @@ class Game {
             if (li.className === `hide letter ${li.textContent}`) {
 
                 trueOrNot = false;
-
-            } else {
-
-                trueOrNot = true;
 
             }
 
