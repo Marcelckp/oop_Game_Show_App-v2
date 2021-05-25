@@ -136,7 +136,7 @@ class Phrase {
                 if (element.className === `hide letter ${letter}`) {
 
                     element.className = `show letter ${letter}`;
-                    console.log(element.className);
+                    // console.log(element.className);
 
                     // console.log(letter)
                     // console.log(`${element.className}`)

@@ -96,13 +96,12 @@ class Game {
 
         })
 
-        console.log(trueOrNot)
-        if (trueOrNot) {
-            console.log('Congratulations you have won the game')
-                // document.querySelector('body').style.backgroundColor = 'green';
-        } else {
-            console.log('game hasn\'t been won as yet')
-        }
+        // console.log(trueOrNot)
+        // if (trueOrNot) {
+        //     console.log('Congratulations you have won the game')
+        // } else {
+        //     console.log('game hasn\'t been won as yet')
+        // }
 
         return trueOrNot;
 
@@ -116,31 +115,22 @@ class Game {
 
     removeLife() {
 
-        const hitOrMiss = phrase.checkLetter(event.target.textContent)
-        console.log(hitOrMiss)
+        const heartTries = document.querySelectorAll('.tries img');
 
-        // const liPlaceHolder = document.querySelectorAll('#phrase ul li')
-        // console.log(liPlaceHolder)
+        // console.log(heartTries)
+        // console.log(heartTries[this.missed]);
+        // console.log(this.missed)
 
-        var missed = this.missed;
-        var remainingLives = 5;
-        // console.log(remainingLives, missed)
+        heartTries[this.missed].src = 'images/lostHeart.png';
 
-        // liPlaceHolder.forEach((holder) => {
+        this.missed++;
 
-        if (hitOrMiss === false) {
+        if (this.missed === 5) {
 
-            missed += 1;
-            remainingLives -= 1
+            this.gameOver(false);
+            console.log(`you ran out of all your hearts, so the games has been lost Try Again`)
 
-            console.log(`number of missed attempts: ${missed}`);
-            console.log(`number of lives remaining: ${remainingLives}`);
         }
-
-        // })
-
-
-
     }
 
     /**
@@ -150,13 +140,118 @@ class Game {
 
     gameOver(gameWon) {
 
+        let message = '';
+        const overlay = document.querySelector('#overlay');
+        const startGameButton = document.querySelector('#btn__reset');
+        const h1MessageDisplay = document.querySelector('#game-over-message');
+        h1MessageDisplay.innerHTML = '';
 
+        if (this.missed === 5) {
+            gameWon = false;
+        }
+
+        if (this.checkForWin() === true) {
+            gameWon = true;
+        }
+
+
+        if (gameWon === true) {
+
+            overlay.style.backgroundColor = '';
+            h1MessageDisplay.innerHTML = `Congratulations you cracked the code and won the game!`;
+            overlay.className = 'win';
+            overlay.style.display = '';
+            startGameButton.innerHTML = 'Start A New Game';
+
+        }
+
+        if (gameWon === false) {
+
+            overlay.style.backgroundColor = '';
+            h1MessageDisplay.innerHTML = `Unlucky you couldn\'t crack the code try again...`;
+            overlay.className = 'lose'
+            overlay.style.display = '';
+            startGameButton.innerHTML = 'Try Again';
+
+        }
+
+        return gameWon;
 
     }
-    handleInteraction() {
+
+    /**
+     * Handles onscreen keyboard button clicks
+     * @param (HTMLButtonElement) button - the clicked button element
+     */
+    handleInteraction(button) {
+
+        console.log(button)
 
 
+        let checkTrueOrFalse = phrase.checkLetter(event.target.textContent);
 
+        if (checkTrueOrFalse === false) {
+
+            this.removeLife();
+            button.disabled = true;
+            button.className = 'wrong'
+
+        }
+        if (checkTrueOrFalse === true) {
+
+            button.disabled = true;
+            button.className = 'chosen'
+            phrase.showMatchedLetter(event.target.textContent);
+            this.checkForWin();
+            this.gameOver()
+
+        }
+
+        this.resetGame();
     }
 
+    resetGame() {
+
+        const overlay = document.querySelector('#overlay');
+        const gameOverMsg = document.querySelector('#game-over-message')
+        const liPlaceholders = document.querySelectorAll('#phrase ul li');
+        // console.log(liPlaceholders)
+
+        const keyBoard = document.querySelectorAll('.keyrow button')
+        const hearts = document.querySelectorAll('#scoreboard .tries img')
+
+        if (this.gameOver() === false ||
+            this.gameOver() === true) {
+
+
+            console.log('time to reset the game')
+
+            liPlaceholders.forEach((li) => {
+
+                console.log(li)
+                li.className = 'hide'
+
+                li.innerHTML = '';
+            })
+
+            // console.log(keyBoard)
+            keyBoard.forEach((button) => {
+
+                button.disabled = false;
+                button.className = ''
+                console.log(button)
+
+            })
+
+            hearts.forEach((heart) => {
+
+                console.log(heart)
+                heart.src = 'images/liveHeart.png';
+                this.missed = 0;
+
+            })
+
+        }
+
+    }
 }

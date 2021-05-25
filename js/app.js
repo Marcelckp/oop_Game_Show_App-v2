@@ -10,7 +10,8 @@ const game = new Game();
 const beginGame = game.startGame;
 
 const startGameBtn = document.querySelector('#btn__reset');
-const onScreenButtons = document.querySelector('#qwerty');
+const onScreenButtons = document.querySelectorAll('#qwerty .keyrow button');
+// console.log(onScreenButtons)
 
 startGameBtn.addEventListener('click', () => {
 
@@ -18,26 +19,15 @@ startGameBtn.addEventListener('click', () => {
 
 })
 
-onScreenButtons.addEventListener('click', () => {
+onScreenButtons.forEach((button) => {
 
-    // phrase.checkLetter(event.target.textContent);
-    phrase.showMatchedLetter(event.target.textContent);
+    button.addEventListener('click', () => {
 
-    game.checkForWin();
-    // game.removeLife();
+        game.handleInteraction(event.target);
 
-    let numLives = 10;
-    let hit = phrase.checkLetter(event.target.textContent)
-
-    if (hit === false) {
-
-        numLives--;
-        console.log(numLives)
-
-    }
+    })
 
 })
-
 const randomPhrase = game.getRandomPhrase();
 // console.log(randomPhrase);
 
