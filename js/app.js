@@ -24,6 +24,17 @@ onScreenButtons.addEventListener('click', () => {
     phrase.showMatchedLetter(event.target.textContent);
 
     game.checkForWin();
+    // game.removeLife();
+
+    let numLives = 10;
+    let hit = phrase.checkLetter(event.target.textContent)
+
+    if (hit === false) {
+
+        numLives--;
+        console.log(numLives)
+
+    }
 
 })
 

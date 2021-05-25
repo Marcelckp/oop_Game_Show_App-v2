@@ -99,6 +99,7 @@ class Game {
         console.log(trueOrNot)
         if (trueOrNot) {
             console.log('Congratulations you have won the game')
+                // document.querySelector('body').style.backgroundColor = 'green';
         } else {
             console.log('game hasn\'t been won as yet')
         }
@@ -107,13 +108,47 @@ class Game {
 
     }
 
+    /**
+     * Increase the value of the missed property
+     * Removes a life from the scoreboard
+     * Checks if player has remaining lives and ends game if player is out of lives
+     */
+
     removeLife() {
+
+        const hitOrMiss = phrase.checkLetter(event.target.textContent)
+        console.log(hitOrMiss)
+
+        // const liPlaceHolder = document.querySelectorAll('#phrase ul li')
+        // console.log(liPlaceHolder)
+
+        var missed = this.missed;
+        var remainingLives = 5;
+        // console.log(remainingLives, missed)
+
+        // liPlaceHolder.forEach((holder) => {
+
+        if (hitOrMiss === false) {
+
+            missed += 1;
+            remainingLives -= 1
+
+            console.log(`number of missed attempts: ${missed}`);
+            console.log(`number of lives remaining: ${remainingLives}`);
+        }
+
+        // })
 
 
 
     }
 
-    gameOver() {
+    /**
+     * Displays game over message 
+     * @param {boolean} gameWon - whether or not the user won the game
+     */
+
+    gameOver(gameWon) {
 
 
 
