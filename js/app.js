@@ -19,6 +19,7 @@ const body = document.querySelector('body');
 const headerPHunter = document.querySelector('.header')
 const darkModeBtn_off = document.querySelector('#darkMode_off');
 
+
 const randomPhrase = game.getRandomPhrase();
 
 let phrase = new Phrase(randomPhrase);
@@ -101,30 +102,51 @@ resetBtn.addEventListener('click', () => {
 
 })
 
-// window.addEventListener('keyup', () => {
+addEventListener('keyup', () => {
 
-//     console.log(event);
+    // const holder = document.querySelectorAll('#phrase ul li')
 
-//     let checkTrueOrFalse = phrase.checkLetter(event.target.textContent);
+    // console.log(holder)
 
-//     if (checkTrueOrFalse === false) {
+    const buttons = document.querySelectorAll('.keyrow button')
+    console.log(buttons)
 
-//         game.removeLife();
-//         // button.disabled = true;
-//         event.className = 'wrong'
+    console.log(event.key);
 
-//     }
+    let buttonClickLi = '';
 
-//     if (checkTrueOrFalse === true) {
+    buttons.forEach((button) => {
 
-//         // button.disabled = true;
-//         event.key.className = 'chosen'
-//         phrase.showMatchedLetter(event.target.textContent);
-//         game.checkForWin();
-//         game.gameOver();
+        if (button.textContent === event.key) {
 
-//     }
+            console.log(`${button.textContent} is equal to ${event.key}`)
 
-//     game.resetGame();
+            buttonClickLi = button;
+        }
 
-// })
+    })
+
+    let checkTrueOrFalse = phrase.checkLetter(buttonClickLi.textContent);
+    console.log(checkTrueOrFalse)
+
+    if (checkTrueOrFalse === false) {
+
+        game.removeLife();
+        buttonClickLi.target.disabled = true;
+        buttonClickLi.className = 'wrong';
+
+    }
+
+    if (checkTrueOrFalse === true) {
+
+        buttonClickLi.disabled = true;
+        buttonClickLi.className = 'chosen';
+        phrase.showMatchedLetter(buttonClickLi.textContent);
+        game.checkForWin();
+        game.gameOver();
+
+    }
+
+    game.resetGame();
+
+})

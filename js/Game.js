@@ -204,7 +204,7 @@ class Game {
 
             this.removeLife();
             button.disabled = true;
-            button.className = 'wrong'
+            button.className = 'wrong';
 
         }
 
