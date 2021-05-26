@@ -58,9 +58,7 @@ class Phrase {
         })
 
         //log the phrase list to check if each placeholder is created and if each of the li placeholders have the correct class names
-        console.log(phraseList);
-
-        // return letters
+        // console.log(phraseList);
 
     }
 
@@ -136,10 +134,6 @@ class Phrase {
                 if (element.className === `hide letter ${letter}`) {
 
                     element.className = `show letter ${letter}`;
-                    // console.log(element.className);
-
-                    // console.log(letter)
-                    // console.log(`${element.className}`)
 
                 }
 

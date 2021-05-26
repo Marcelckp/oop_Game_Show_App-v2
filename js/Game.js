@@ -21,17 +21,27 @@ class Game {
 
         const phrases = []
 
-        const phrase1 = new Phrase('how are you')
-        const phrase2 = new Phrase('Grime and drill are amazing');
-        const phrase3 = new Phrase('I swing my arms in a figure of eight');
-        const phrase4 = new Phrase('If i pull up best believe the car getting dented');
-        const phrase5 = new Phrase('I keep my huston rocket');
+        const phrase1 = new Phrase('Close but no cigar')
+        const phrase2 = new Phrase('javaScript is the best language');
+        const phrase3 = new Phrase('I spy with my little eye');
+        const phrase4 = new Phrase('A fool and his Money are soon parted');
+        const phrase5 = new Phrase('I have got the best view in the city even the sunset cant compare');
+        const phrase6 = new Phrase('You and I see eye to eye');
+        const phrase7 = new Phrase('Today im feeling a bit under the weather');
+        const phrase8 = new Phrase('Coding Has been a blessing in disguise');
+        const phrase9 = new Phrase('It feels as if theres a elephant in the room');
+        const phrase10 = new Phrase('Work hard daily no Pain no Gain');
 
         phrases.push(phrase1);
         phrases.push(phrase2);
         phrases.push(phrase3);
         phrases.push(phrase4);
         phrases.push(phrase5);
+        phrases.push(phrase6);
+        phrases.push(phrase7);
+        phrases.push(phrase8);
+        phrases.push(phrase9);
+        phrases.push(phrase10);
 
         return phrases;
 
@@ -45,7 +55,7 @@ class Game {
 
     getRandomPhrase() {
 
-        const randomPhrase = this.phrases[Math.floor(Math.random() * 5)]
+        const randomPhrase = this.phrases[Math.floor(Math.random() * 10)]
 
         const phrase = randomPhrase.phrase;
         // console.log(phrase)
@@ -197,17 +207,19 @@ class Game {
             button.className = 'wrong'
 
         }
+
         if (checkTrueOrFalse === true) {
 
             button.disabled = true;
             button.className = 'chosen'
             phrase.showMatchedLetter(event.target.textContent);
             this.checkForWin();
-            this.gameOver()
+            this.gameOver();
 
         }
 
         this.resetGame();
+
     }
 
     resetGame() {
@@ -223,29 +235,28 @@ class Game {
         if (this.gameOver() === false ||
             this.gameOver() === true) {
 
-
-            console.log('time to reset the game')
+            // console.log('time to reset the game')
 
             liPlaceholders.forEach((li) => {
 
-                console.log(li)
+                // console.log(li)
                 li.className = 'hide'
 
                 li.innerHTML = '';
+
             })
 
-            // console.log(keyBoard)
             keyBoard.forEach((button) => {
 
                 button.disabled = false;
                 button.className = ''
-                console.log(button)
+                    // console.log(button)
 
             })
 
             hearts.forEach((heart) => {
 
-                console.log(heart)
+                // console.log(heart)
                 heart.src = 'images/liveHeart.png';
                 this.missed = 0;
 
