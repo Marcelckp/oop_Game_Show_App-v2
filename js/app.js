@@ -132,7 +132,7 @@ addEventListener('keyup', () => {
     if (checkTrueOrFalse === false) {
 
         game.removeLife();
-        buttonClickLi.target.disabled = true;
+        buttonClickLi.disabled = true;
         buttonClickLi.className = 'wrong';
 
     }
