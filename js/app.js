@@ -34,7 +34,7 @@ startGameBtn.addEventListener('click', () => {
 
 onScreenButtons.forEach((button) => {
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
 
         game.handleInteraction(event.target);
 
@@ -66,17 +66,18 @@ darkModeBtn_on.addEventListener('click', () => {
 resetBtn.addEventListener('click', () => {
 
     const overlay = document.querySelector('#overlay');
-    const gameOverMsg = document.querySelector('#game-over-message')
+    const gameOverMsg = document.querySelector('#game-over-message');
     const liPlaceholders = document.querySelectorAll('#phrase ul li');
-    const keyBoard = document.querySelectorAll('.keyrow button')
-    const hearts = document.querySelectorAll('#scoreboard .tries img')
+    const keyBoard = document.querySelectorAll('.keyrow button');
+    const hearts = document.querySelectorAll('#scoreboard .tries img');
+    const liParent = document.querySelector('#phrase ul');
 
     liPlaceholders.forEach((li) => {
 
         // 
         li.className = 'hide'
 
-        li.innerHTML = '';
+        liParent.removeChild(li);
 
     })
 
@@ -109,32 +110,14 @@ resetBtn.addEventListener('click', () => {
 })
 
 
-window.addEventListener('keyup', () => {
+window.addEventListener('keyup', (event) => {
 
     onScreenButtons.forEach((button) => {
 
         if (button.textContent === event.key && button.disabled === false) {
 
-            let checkTrueOrFalse = game.activePhrase.checkLetter(button.textContent);
-            // console.log(checkTrueOrFalse)
+            game.handleInteraction(button)
 
-            if (checkTrueOrFalse === false) {
-
-                game.removeLife();
-                button.disabled = true;
-                button.className = 'wrong';
-
-            }
-
-            if (checkTrueOrFalse === true) {
-
-                button.disabled = true;
-                button.className = 'chosen';
-                game.activePhrase.showMatchedLetter(button.textContent);
-                game.checkForWin();
-                game.gameOver();
-
-            }
         }
 
         if (button.disabled) {
@@ -144,8 +127,6 @@ window.addEventListener('keyup', () => {
             checkTrueOrFalse = null;
 
         }
-
-        game.resetGame();
 
     })
 
