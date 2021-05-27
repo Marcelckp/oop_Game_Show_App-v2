@@ -124,8 +124,6 @@ window.addEventListener('keyup', (event) => {
 
             // console.log('The button you pressed has been disabled and this button press has not been registered');
 
-            checkTrueOrFalse = null;
-
         }
 
     })
