@@ -19,6 +19,7 @@ class Game {
 
     createPhrases() {
 
+        //class new instances of the phrase class and pass the a string to become a phrase and place it in an array of objects
         const phrases = [
 
             new Phrase('Close but no cigar'),
@@ -34,6 +35,7 @@ class Game {
 
         ]
 
+        //return the array of objects
         return phrases;
 
     }
@@ -45,8 +47,11 @@ class Game {
 
     getRandomPhrase() {
 
+        //use math.random for the length of the phrases to get a number and place it as the index of the this.phrases/ phrases array of object 
+        //to get a random phrase from the list of phrases above
         let randomPhrase = this.phrases[Math.floor(Math.random() * 10)]
 
+        //return the random phrase
         return randomPhrase;
 
     }
@@ -93,6 +98,7 @@ class Game {
 
         })
 
+        //create a little log tree to log the value of trueOrNot so you can keep track of is the game has been won or not as yet
         // console.log(trueOrNot)
         // if (trueOrNot) {
         //     console.log('Congratulations you have won the game')
@@ -100,6 +106,7 @@ class Game {
         //     console.log('game hasn\'t been won as yet')
         // }
 
+        //return trueOrNots value 
         return trueOrNot;
 
     }
@@ -112,6 +119,7 @@ class Game {
 
     removeLife() {
 
+        // select the heart DOM element and log it to ensure you're selecting the correct elements
         const heartTries = document.querySelectorAll('.tries img');
 
         if (this.missed < heartTries.length) {
@@ -119,19 +127,24 @@ class Game {
             heartTries[this.missed].src = 'images/lostHeart.png';
 
         }
-
+        //increment the games missed property by 1 using either this.missed += 1 or this.missed++
         this.missed++;
 
     }
 
-
     /**
      * Displays game over message 
      * @param {boolean} gameWon - whether or not the user won the game
+     * 
+     * @create a if statement that checks if the gameWon is equal to true then it will apply all the necessary styles if the game is won 
+     * and
+     * @create another if statement that checks if the gameWon is equal to false then applies all the necessary styles if the game is lost 
+     * @return the value of gameWon for callback use later
      */
 
     gameOver(gameWon) {
 
+        //select the DOM elements needed to complete the task
         const overlay = document.querySelector('#overlay');
         const startGameButton = document.querySelector('#btn__reset');
         const h1MessageDisplay = document.querySelector('#game-over-message');
@@ -175,6 +188,7 @@ class Game {
      * Handles onscreen keyboard button clicks
      * @param (HTMLButtonElement) button - the clicked button element
      */
+
     handleInteraction(button) {
 
         const checkTrueOrFalse = this.activePhrase.checkLetter(button.textContent);
@@ -201,6 +215,16 @@ class Game {
         this.resetGame();
 
     }
+
+    /**
+     * Resets the games keyboard and li Placeholders on the page and makes it ready to play the game again 
+     * @conditional if the game has been won or lost ( this.gameOver() === true or this.gameOver() === false)
+     *      if the condition is met log ('its time to reset the game')
+     *      let this.activePhrase = null to reset the activePhrase
+     *      and remove all the classes placed on the onscreen keyboard and the scoreboardDiv hearts and set the this.missed property to = 0 
+     *      to reset the number of tries you have in the next game 
+     *      and remove all currently displayed li placeholder elements that are on the page with the removeChild() method
+     */
 
     resetGame() {
 
