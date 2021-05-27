@@ -57,7 +57,7 @@ darkModeBtn_on.addEventListener('click', () => {
     resetG_btn.id = 'resetG_btn_darkMode'
 
     darkModeBtn_on.innerHTML = 'Dark Mode on';
-    // darkModeBtn_on.disabled = true
+    darkModeBtn_on.disabled = true
 
 
     if (darkBtnElement.textContent === 'Dark Mode on') {
