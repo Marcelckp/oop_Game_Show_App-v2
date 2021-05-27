@@ -64,42 +64,13 @@ class Phrase {
 
     /**
      * Checks if passed letter is in phrase
-     * @createArray of the letters that are displayed on the page - to check 
-     * if the letter in being clicked is a letter in the phrase displayed on screen
+     * @param (string) letter - letter that has to be checked against the active phrase
      */
 
     checkLetter(letter) {
 
-        //Select all li placeholder elements that are currently displayed on the page and log your results to insure correct selection
-        let phrase = document.querySelectorAll('#phrase ul li');
-        // console.log(phrase)
+        return game.activePhrase.phrase.includes(letter)
 
-        //Declare an editable empty array with the let keyword
-        let letters = [];
-
-        /**
-         * Loop over all items selected in the phrase variable and 
-         * place all the loop over li elements
-         * @target their textContent using .textContent and push it to a new array (letters[]) 
-         */
-
-        phrase.forEach((letR) => {
-
-            //gets the text content of all the selected phrase letters and pushes each letter into an array (letters[])
-            let l = letR.textContent;
-            // console.log(l)
-
-            //push the l variable to the declared array with the array method .push()
-            letters.push(l);
-
-        })
-
-        //Declare a test using .includes() method and store the boolean value that it returns in a variable and log the result to insure it works as intended
-        let doesInclude = letters.includes(letter);
-        // console.log(doesInclude);
-
-        //return the boolean value for the test the was declared above
-        return doesInclude;
     }
 
     /**

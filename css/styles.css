@@ -124,18 +124,6 @@
         justify-content: center;
     }
     
-    .chosen {
-        background: #3a3f58;
-        border-radius: 5px;
-        font-size: var(--font-size-medium);
-        color: #FFFFFF;
-    }
-    
-    .wrong {
-        background: tomato;
-        color: #FFFFFF;
-    }
-    
     .btn__reset {
         padding: 16px;
         margin: 50px auto;
@@ -180,6 +168,18 @@
     .darkMode_Keyboard {
         color: white;
         background-color: grey;
+    }
+    
+    .chosen {
+        background: #3a3f58;
+        border-radius: 5px;
+        font-size: var(--font-size-medium);
+        color: #FFFFFF;
+    }
+    
+    .wrong {
+        background: tomato;
+        color: #FFFFFF;
     }
     /* Overlay */
     

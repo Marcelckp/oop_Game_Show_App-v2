@@ -19,29 +19,20 @@ class Game {
 
     createPhrases() {
 
-        const phrases = []
+        const phrases = [
 
-        const phrase1 = new Phrase('Close but no cigar')
-        const phrase2 = new Phrase('javaScript is the best language');
-        const phrase3 = new Phrase('I spy with my little eye');
-        const phrase4 = new Phrase('A fool and his Money are soon parted');
-        const phrase5 = new Phrase('I have got the best view in the city even the sunset cant compare');
-        const phrase6 = new Phrase('You and I see eye to eye');
-        const phrase7 = new Phrase('Today im feeling a bit under the weather');
-        const phrase8 = new Phrase('Coding Has been a blessing in disguise');
-        const phrase9 = new Phrase('It feels as if theres a elephant in the room');
-        const phrase10 = new Phrase('Work hard daily no Pain no Gain');
+            new Phrase('Close but no cigar'),
+            new Phrase('javaScript is the best language'),
+            new Phrase('I spy with my little eye'),
+            new Phrase('A fool and his Money are soon parted'),
+            new Phrase('I have got the best view in the city even the sunset cant compare'),
+            new Phrase('You and I see eye to eye'),
+            new Phrase('Today im feeling a bit under the weather'),
+            new Phrase('Coding Has been a blessing in disguise'),
+            new Phrase('It feels as if theres a elephant in the room'),
+            new Phrase('Work hard daily no Pain no Gain')
 
-        phrases.push(phrase1);
-        phrases.push(phrase2);
-        phrases.push(phrase3);
-        phrases.push(phrase4);
-        phrases.push(phrase5);
-        phrases.push(phrase6);
-        phrases.push(phrase7);
-        phrases.push(phrase8);
-        phrases.push(phrase9);
-        phrases.push(phrase10);
+        ]
 
         return phrases;
 
@@ -52,15 +43,11 @@ class Game {
      * @return {object} Phrase object chosen to be used in the game 
      */
 
-
     getRandomPhrase() {
 
-        const randomPhrase = this.phrases[Math.floor(Math.random() * 10)]
+        let randomPhrase = this.phrases[Math.floor(Math.random() * 10)]
 
-        const phrase = randomPhrase.phrase;
-        // console.log(phrase)
-
-        return phrase;
+        return randomPhrase;
 
     }
 
@@ -70,16 +57,16 @@ class Game {
 
     startGame() {
 
+        // this.activePhrase = this.getRandomPhrase();
+
         const overlayDiv = document.querySelector('#overlay');
 
         overlayDiv.style.display = 'none';
 
-        const randomPhrase = game.getRandomPhrase();
-        // console.log(randomPhrase);
+        this.activePhrase = this.getRandomPhrase();
+        // console.log(this.activePhrase)
 
-        let phrase = new Phrase(randomPhrase);
-        phrase.addPhraseToDisplay();
-
+        this.activePhrase.addPhraseToDisplay();
 
     }
 
@@ -127,21 +114,16 @@ class Game {
 
         const heartTries = document.querySelectorAll('.tries img');
 
-        // console.log(heartTries)
-        // console.log(heartTries[this.missed]);
-        // console.log(this.missed)
+        if (this.missed < heartTries.length) {
 
-        heartTries[this.missed].src = 'images/lostHeart.png';
+            heartTries[this.missed].src = 'images/lostHeart.png';
+
+        }
 
         this.missed++;
 
-        if (this.missed === 5) {
-
-            this.gameOver(false);
-            console.log(`you ran out of all your hearts, so the games has been lost Try Again`)
-
-        }
     }
+
 
     /**
      * Displays game over message 
@@ -150,7 +132,6 @@ class Game {
 
     gameOver(gameWon) {
 
-        let message = '';
         const overlay = document.querySelector('#overlay');
         const startGameButton = document.querySelector('#btn__reset');
         const h1MessageDisplay = document.querySelector('#game-over-message');
@@ -177,6 +158,7 @@ class Game {
 
         if (gameWon === false) {
 
+            // console.log('you ran out of lives')
             overlay.style.backgroundColor = '';
             h1MessageDisplay.innerHTML = `Unlucky you couldn\'t crack the code try again...`;
             overlay.className = 'lose'
@@ -195,10 +177,8 @@ class Game {
      */
     handleInteraction(button) {
 
-        console.log(button)
-
-
-        let checkTrueOrFalse = phrase.checkLetter(event.target.textContent);
+        const checkTrueOrFalse = this.activePhrase.checkLetter(button.textContent);
+        console.log(checkTrueOrFalse)
 
         if (checkTrueOrFalse === false) {
 
@@ -212,7 +192,7 @@ class Game {
 
             button.disabled = true;
             button.className = 'chosen'
-            phrase.showMatchedLetter(event.target.textContent);
+            this.activePhrase.showMatchedLetter(button.textContent);
             this.checkForWin();
             this.gameOver();
 
@@ -226,8 +206,8 @@ class Game {
 
         const overlay = document.querySelector('#overlay');
         const gameOverMsg = document.querySelector('#game-over-message')
-        const liPlaceholders = document.querySelectorAll('#phrase ul li');
-        // console.log(liPlaceholders)
+        const phraseUl = document.querySelector('#phrase ul');
+        const phraseUlChildren = document.querySelectorAll('#phrase ul li');
 
         const keyBoard = document.querySelectorAll('.keyrow button')
         const hearts = document.querySelectorAll('#scoreboard .tries img')
@@ -235,21 +215,21 @@ class Game {
         if (this.gameOver() === false ||
             this.gameOver() === true) {
 
-            // console.log('time to reset the game')
+            console.log('time to reset the game')
 
-            liPlaceholders.forEach((li) => {
+            this.activePhrase = null
 
-                // console.log(li)
-                li.className = 'hide'
+            phraseUlChildren.forEach((li) => {
 
-                li.innerHTML = '';
+                li.className = ''
+                phraseUl.removeChild(li)
 
             })
 
             keyBoard.forEach((button) => {
 
                 button.disabled = false;
-                button.className = ''
+                button.className = 'key'
                     // console.log(button)
 
             })

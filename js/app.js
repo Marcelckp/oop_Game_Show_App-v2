@@ -2,33 +2,33 @@
  * Project 4 - OOP Game App
  * app.js */
 
-const game = new Game();
-// console.log(game)
-
-// game.phrases.forEach((phrase, index) => console.log(`Phrase ${index} - Phrase: ${phrase.phrase}`))
-
-const beginGame = game.startGame;
+let game;
 
 const startGameBtn = document.querySelector('#btn__reset');
 const onScreenButtons = document.querySelectorAll('#qwerty .keyrow button');
-// console.log(onScreenButtons)
-
 const resetBtn = document.querySelector('#resetG_btn');
 const darkModeBtn_on = document.querySelector('#darkMode_on');
 const body = document.querySelector('body');
 const headerPHunter = document.querySelector('.header')
 const darkModeBtn_off = document.querySelector('#darkMode_off');
-
-
-const randomPhrase = game.getRandomPhrase();
-
-let phrase = new Phrase(randomPhrase);
+const darkBtnElement = document.querySelector('#scoreboard .button')
 
 overlay.style.backgroundColor = '#235789';
 
 startGameBtn.addEventListener('click', () => {
 
-    beginGame();
+    game = new Game();
+    game.startGame();
+
+    if (darkBtnElement.id === 'darkMode_off') {
+
+        onScreenButtons.forEach((button) => {
+
+            button.className = 'darkMode_Keyboard'
+
+        })
+
+    }
 
 })
 
@@ -73,17 +73,23 @@ resetBtn.addEventListener('click', () => {
 
     liPlaceholders.forEach((li) => {
 
-        // console.log(li)
+        // 
         li.className = 'hide'
 
         li.innerHTML = '';
+
     })
 
     keyBoard.forEach((button) => {
 
         button.disabled = false;
         button.className = ''
-            // console.log(button)
+
+        if (darkBtnElement.id === 'darkMode_off') {
+
+            button.className = 'key darkMode_Keyboard'
+
+        }
 
     })
 
@@ -102,51 +108,45 @@ resetBtn.addEventListener('click', () => {
 
 })
 
-addEventListener('keyup', () => {
 
-    // const holder = document.querySelectorAll('#phrase ul li')
+window.addEventListener('keyup', () => {
 
-    // console.log(holder)
+    onScreenButtons.forEach((button) => {
 
-    const buttons = document.querySelectorAll('.keyrow button')
-    console.log(buttons)
+        if (button.textContent === event.key && button.disabled === false) {
 
-    console.log(event.key);
+            let checkTrueOrFalse = game.activePhrase.checkLetter(button.textContent);
+            // console.log(checkTrueOrFalse)
 
-    let buttonClickLi = '';
+            if (checkTrueOrFalse === false) {
 
-    buttons.forEach((button) => {
+                game.removeLife();
+                button.disabled = true;
+                button.className = 'wrong';
 
-        if (button.textContent === event.key) {
+            }
 
-            console.log(`${button.textContent} is equal to ${event.key}`)
+            if (checkTrueOrFalse === true) {
 
-            buttonClickLi = button;
+                button.disabled = true;
+                button.className = 'chosen';
+                game.activePhrase.showMatchedLetter(button.textContent);
+                game.checkForWin();
+                game.gameOver();
+
+            }
         }
 
+        if (button.disabled) {
+
+            // console.log('The button you pressed has been disabled and this button press has not been registered');
+
+            checkTrueOrFalse = null;
+
+        }
+
+        game.resetGame();
+
     })
-
-    let checkTrueOrFalse = phrase.checkLetter(buttonClickLi.textContent);
-    console.log(checkTrueOrFalse)
-
-    if (checkTrueOrFalse === false) {
-
-        game.removeLife();
-        buttonClickLi.disabled = true;
-        buttonClickLi.className = 'wrong';
-
-    }
-
-    if (checkTrueOrFalse === true) {
-
-        buttonClickLi.disabled = true;
-        buttonClickLi.className = 'chosen';
-        phrase.showMatchedLetter(buttonClickLi.textContent);
-        game.checkForWin();
-        game.gameOver();
-
-    }
-
-    game.resetGame();
 
 })
