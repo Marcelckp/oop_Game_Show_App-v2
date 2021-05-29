@@ -49,7 +49,7 @@ class Game {
 
         //use math.random for the length of the phrases to get a number and place it as the index of the this.phrases/ phrases array of object 
         //to get a random phrase from the list of phrases above
-        let randomPhrase = this.phrases[Math.floor(Math.random() * 10)]
+        let randomPhrase = this.phrases[Math.floor(Math.random() * this.phrases.length)]
 
         //return the random phrase
         return randomPhrase;
@@ -98,6 +98,8 @@ class Game {
 
         })
 
+
+
         //create a little log tree to log the value of trueOrNot so you can keep track of is the game has been won or not as yet
         // console.log(trueOrNot)
         // if (trueOrNot) {
@@ -127,10 +129,18 @@ class Game {
             heartTries[this.missed].src = 'images/lostHeart.png';
 
         }
+
         //increment the games missed property by 1 using either this.missed += 1 or this.missed++
         this.missed++;
 
+        if (this.missed === 5) {
+            this.gameOver(false);
+        }
+
     }
+
+
+
 
     /**
      * Displays game over message 
@@ -148,21 +158,20 @@ class Game {
         const overlay = document.querySelector('#overlay');
         const startGameButton = document.querySelector('#btn__reset');
         const h1MessageDisplay = document.querySelector('#game-over-message');
-        h1MessageDisplay.innerHTML = '';
-
-        if (this.missed === 5) {
-            gameWon = false;
-        }
 
         if (this.checkForWin() === true) {
             gameWon = true;
         }
 
+        if (this.missed === 5) {
+            gameWon = false;
+        }
 
         if (gameWon === true) {
 
             overlay.style.backgroundColor = '';
             h1MessageDisplay.innerHTML = `Congratulations you cracked the code and won the game!`;
+            h1MessageDisplay.style.color = 'white';
             overlay.className = 'win';
             overlay.style.display = '';
             startGameButton.innerHTML = 'Start A New Game';
@@ -173,7 +182,7 @@ class Game {
 
             // console.log('you ran out of lives')
             overlay.style.backgroundColor = '';
-            h1MessageDisplay.innerHTML = `Unlucky you couldn\'t crack the code try again...`;
+            h1MessageDisplay.innerHTML = "Unlucky you couldn't crack the code try again...";
             overlay.className = 'lose'
             overlay.style.display = '';
             startGameButton.innerHTML = 'Try Again';
@@ -192,7 +201,7 @@ class Game {
     handleInteraction(button) {
 
         const checkTrueOrFalse = this.activePhrase.checkLetter(button.textContent);
-        console.log(checkTrueOrFalse)
+        console.log(checkTrueOrFalse);
 
         if (checkTrueOrFalse === false) {
 

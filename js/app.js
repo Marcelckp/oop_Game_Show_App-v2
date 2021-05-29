@@ -35,6 +35,8 @@ startGameBtn.addEventListener('click', () => {
     game = new Game();
     game.startGame();
 
+    game.resetGame();
+
     if (darkBtnElement.id === 'darkMode_off') {
 
         onScreenButtons.forEach((button) => {
