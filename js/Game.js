@@ -139,9 +139,6 @@ class Game {
 
     }
 
-
-
-
     /**
      * Displays game over message 
      * @param {boolean} gameWon - whether or not the user won the game
